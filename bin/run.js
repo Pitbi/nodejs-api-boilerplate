@@ -13,11 +13,16 @@ global.__TMP_DIR = path.join(process.env.PWD, 'tmp')
 global.__CACHE_DIR = path.join(process.env.PWD, 'tmp', 'cache')
 global.__MONGO_URI = process.env.MONGO_URI || __CONFIG.database.host
 
-/*Connect DB*/
-db()
 
-/*Start express app*/
-require('../src/server')
+const run = async () => {
+  /*Connect DB*/
+  await db()
+  
+  /*Start express app*/
+  require('../src/server')
+}
+
+run()
 
 //NodeJS errors handlers
 process.on('uncaughtException', (ex) => {

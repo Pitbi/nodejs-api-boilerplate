@@ -1,6 +1,7 @@
 const Controller = require('../../../core/Controller')
 const Validator = require('./Validator')
 const User = require('../../../models/user')
+const ERRORS = require('./ERRORS')
 
 class AuthController extends Controller {
   constructor() {
@@ -16,9 +17,11 @@ class AuthController extends Controller {
     const passwordMatch = await user.comparePassword(body.password)
     if (!passwordMatch)
       return this.throwError(ERRORS.PASSWORD_WRONG)
+    if (!user.validated)
+      return this.throwError(ERRORS.USER_NOT_VALIDATED)
     await this.logIn(user)
 
-    this.response = await this.format(user)
+    this.response.user = user
 
     this.respond()
   }

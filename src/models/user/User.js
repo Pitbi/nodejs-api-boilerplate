@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs')
+const SALT_WORK_FACTOR = 10
 
 class UserClass {
   get fullName() {
@@ -22,6 +23,12 @@ class UserClass {
       email,
       active: true
     })
+  }
+
+  async preSave() {
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR)
+    const hash = await bcrypt.hash(this.password, salt)
+    this.password = hash
   }
 
   async comparePassword(candidatePassword) {

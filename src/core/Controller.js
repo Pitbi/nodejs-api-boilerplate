@@ -38,7 +38,7 @@ class Controller {
     } catch (err) {
       if (err.ok)
         return this.respond(err)
-      if (__DEV)
+      if (__DEBUG)
         console.error(err)
       this.throwError(err)
     }

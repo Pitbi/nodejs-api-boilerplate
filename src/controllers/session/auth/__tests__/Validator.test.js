@@ -1,7 +1,7 @@
 const {
   expectIsNotValidAndErrors,
   expectIsValid
-} = require('../../../../../test-support/helpers/validator')
+} = require('../../../../../test-support/helpers/validators')
 
 const Validator = require('../Validator')
 

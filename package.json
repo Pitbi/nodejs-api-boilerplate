@@ -51,5 +51,18 @@
     "nodemon": "^1.18.4",
     "sinon": "^6.2.0",
     "sinon-express-mock": "^2.0.5"
+  },
+  "jest": {
+    "globals": {
+      "__DEV": true,
+      "__DEBUG": false,
+      "__MONGO_URI": "mongodb://localhost:27017/nodejs-api-boilerplate-dev-jest"
+    },
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/config/",
+      "/test-support/"
+    ],
+    "verbose": false
   }
 }

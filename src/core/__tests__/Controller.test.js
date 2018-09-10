@@ -2,14 +2,12 @@ const sinon = require('sinon')
 
 const {
   constructorAttributes
-} = require('../../../test-support/helpers/controller')
+} = require('../../../test-support/helpers/controllers')
 const {
   mockValidator
-} = require('../../../test-support/helpers/validator')
+} = require('../../../test-support/helpers/validators')
 
 const Controller = require('../Controller')
-
-global.__DEV = true
 
 describe('Core Controller', () => {
   test('worker methods order', async () => {
@@ -32,6 +30,7 @@ describe('Core Controller', () => {
     expect(controller.response.error).toBe('main_error')
     expect(controller.response.errors).toHaveProperty('fake')
     expect(controller.response.errors.fake[0].error).toEqual('fake_validator_error')
+    expect(controller.response.message).toBe('i18n_test_main_error')
   })
   test('validator warning', async () => {
     const controller = new Controller(...constructorAttributes())
@@ -44,8 +43,27 @@ describe('Core Controller', () => {
   })
   test('login', async () => {
     const controller = new Controller(...constructorAttributes())
-    await controller.logIn('user')
-    expect(controller.user).toBe('user')
-    expect(controller.req.user).toBe('user')
+    await controller.logIn({ firstName: 'Pierre' })
+    expect(controller.user.firstName).toBe('Pierre')
+    expect(controller.req.user.firstName).toBe('Pierre')
+  })
+  test('respond', async () => {
+    const controller = new Controller(...constructorAttributes())
+    controller.responseCode = 201
+    controller.respond()
+    expect(controller.response.ok).toBe(1)
+    expect(controller.response.code).toBe(201)
+  })
+  test('throw error: whitout code', async () => {
+    const controller = new Controller(...constructorAttributes())
+    controller.throwError({})
+    expect(controller.response.ok).toBe(0)
+    expect(controller.response.code).toBe(500)
+  })
+  test('throw error: string error', async () => {
+    const controller = new Controller(...constructorAttributes())
+    controller.throwError('string')
+    expect(controller.response.ok).toBe(0)
+    expect(controller.response.code).toBe(500)
   })
 })

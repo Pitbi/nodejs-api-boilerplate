@@ -1,6 +1,10 @@
 const _ = require('lodash')
+const mongoose = require('mongoose')
+const userSchema = require('./schemas/user')
 const bcrypt = require('bcryptjs')
 const SALT_WORK_FACTOR = 10
+
+const RegisterWorker = require('./workers/Register')
 
 class UserClass {
   get fullName() {
@@ -26,11 +30,10 @@ class UserClass {
     })
   }
 
-  static async register(attributes, options) {
+  static async register(attributes, options = {}) {
     /*Todo: make worker*/
-    const user = new this(attributes)
-    user.generateValidationToken()
-    await user.save()
+    const worker = new RegisterWorker(attributes, options)
+    await worker.work()
     return user
   }
 
@@ -55,4 +58,12 @@ class UserClass {
   }
 }
 
-module.exports = UserClass
+userSchema.loadClass(UserClass)
+
+userSchema.pre('save', async function () {
+  await this.preSave()
+})
+
+const User = mongoose.model('User', userSchema)
+
+module.exports = User

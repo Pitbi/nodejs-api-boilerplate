@@ -56,7 +56,6 @@ describe('Auth validator', () => {
       } 
     })
     await validator.run()
-    console.log(validator.validations.email)
     expectIsNotValidAndErrors(validator, {
       mainError,
       errors: {

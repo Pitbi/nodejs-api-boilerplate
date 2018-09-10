@@ -1,5 +1,3 @@
-const dataBase = require('../../../../../data-base')
-const mongoose = require('mongoose')
 const User = require('../../../../user/model')
 
 const {
@@ -8,13 +6,7 @@ const {
 
 const Controller = require('../Controller')
 
-beforeAll(async () => {
-  await dataBase()
-})
-
-afterEach(async () => {
-  await mongoose.connection.db.dropDatabase()
-})
+require('../../../../../../test-support/jest-hooks')
 
 describe('Auth controller', () => {
   it('Login success', async () => {

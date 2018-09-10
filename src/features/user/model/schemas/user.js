@@ -7,7 +7,10 @@ const userSchema = new mongoose.Schema({
   email: { type: String, trim: true, required: true, lowercase: true },
   password: { type: String, required: true },
   active: { type: Boolean, default: true },
-  validated: { type: Boolean, default: false }
+  validated: { type: Boolean, default: false },
+  tokens: {
+    accountValidation: { type: String }
+  }
 })
 
 module.exports = userSchema

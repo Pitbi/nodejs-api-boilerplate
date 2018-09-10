@@ -1,3 +1,5 @@
+const User = require('../../../model')
+
 const {
   expectIsNotValidAndErrors,
   expectIsValid
@@ -5,11 +7,23 @@ const {
 
 const Validator = require('../Validator')
 
-const email = 'email@mail.com'
-const password = '123456'
 const mainError = 'error_user_creation_payload_validation'
 
+require('../../../../../../test-support/jest-hooks')
+
 describe('Auth validator', () => {
+  it('Valid', async () => {
+    const validator = new Validator({
+      body: {
+        firstName: 'xxx',
+        lastName: 'yxx',
+        email: 'existing@mail.com',
+        password: 'azqscqs'
+      } 
+    })
+    await validator.run()
+    expectIsValid(validator)
+  })
   it('Not valid: empty payload', async () => {
     const validator = new Validator({
       body: {} 
@@ -35,7 +49,6 @@ describe('Auth validator', () => {
       } 
     })
     await validator.run()
-    console.log(validator.errors)
     expectIsNotValidAndErrors(validator, {
       mainError,
       errors: {
@@ -43,6 +56,31 @@ describe('Auth validator', () => {
         lastName: ['error_user_creation_last_name_invalid'],
         email: ['error_user_creation_email_invalid'],
         password: ['error_user_creation_password_invalid']
+      }
+    })
+  })
+  it('Not valid: email already user', async () => {
+    await User.create({
+      firstName: 'xxx',
+      lastName: 'yxx',
+      email: 'existing@mail.com',
+      password: 'azqscqs',
+      active: true,
+      validated: true
+    })
+    const validator = new Validator({
+      body: {
+        firstName: 'xxx',
+        lastName: 'yxx',
+        email: 'existing@mail.com',
+        password: 'azqscqs'
+      } 
+    })
+    await validator.run()
+    expectIsNotValidAndErrors(validator, {
+      mainError,
+      errors: {
+        email: ['error_user_creation_email_already_used']
       }
     })
   })

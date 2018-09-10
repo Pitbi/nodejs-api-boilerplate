@@ -1,5 +1,7 @@
 const Validator = require('api-request-validator')
 
+const User = require('../../model')
+
 const ERRORS = require('./ERRORS')
 const REGEX = require('../../../../constants/REGEXP')
 
@@ -29,7 +31,13 @@ const validations = {
     regexp: {
       error: ERRORS.EMAIL_INVALID_FORMAT,
       data: REGEX.validations.email
-    }
+    },
+    asyncMethods: [
+      {
+        error: ERRORS.EMAIL_ALREADY_USED,
+        data: 'isExistingEmail'
+      }
+    ]
   },
   password: {
     required: {
@@ -48,6 +56,10 @@ class CreateControllerValidator extends Validator {
       mainError: ERRORS.MAIN,
       filter: true
     })
+  }
+  async isExistingEmail(email) {
+    const user = await User.findOne({ email }).select('_id').lean()
+    return !Boolean(user)
   }
 }
 

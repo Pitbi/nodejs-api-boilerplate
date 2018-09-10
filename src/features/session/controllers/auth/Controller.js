@@ -1,6 +1,6 @@
-const Controller = require('../../../core/Controller')
+const Controller = require('../../../../core/Controller')
 const Validator = require('./Validator')
-const User = require('../../../models/user')
+const User = require('../../../user/model')
 const ERRORS = require('./ERRORS')
 
 class AuthController extends Controller {

@@ -10,7 +10,7 @@ const run = async () => {
   const { controller, controllerPath } = promptResult
   if (!controller)
     throw 'missing_controller_name'
-  const fullControllerPath = path.join(process.env.PWD, 'src', 'controllers', controllerPath, controller)
+  const fullControllerPath = path.join(process.env.PWD, 'src', 'features', controllerPath, controller)
 
   const templatesAttributes = {
     Controller: changeCase.pascalCase(`${controller} controller`)

@@ -1,10 +1,10 @@
-const dataBase = require('../../../../data-base')
+const dataBase = require('../../../../../data-base')
 const mongoose = require('mongoose')
-const User = require('../../../../models/user')
+const User = require('../../../../user/model')
 
 const {
   constructorAttributes
-} = require('../../../../../test-support/helpers/controllers')
+} = require('../../../../../../test-support/helpers/controllers')
 
 const Controller = require('../Controller')
 

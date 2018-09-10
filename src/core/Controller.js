@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const APP = require('../constants/APP')
-const User = require('../models/user')
+const User = require('../features/user/model')
 const jwt = require('jsonwebtoken')
 const SESSION_ERRORS = {} || require('../features/session/ERRORS')
 

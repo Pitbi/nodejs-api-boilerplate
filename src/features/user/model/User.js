@@ -26,8 +26,13 @@ class UserClass {
   }
 
   async preSave() {
+    if (this.isModified('password'))
+      await this.setPassword()
+  }
+
+  async setPassword(password = this.password) {
     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR)
-    const hash = await bcrypt.hash(this.password, salt)
+    const hash = await bcrypt.hash(password, salt)
     this.password = hash
   }
 

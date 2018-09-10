@@ -1,7 +1,7 @@
 const {
   expectIsNotValidAndErrors,
   expectIsValid
-} = require('../../../../../test-support/helpers/validators')
+} = require('../../../../../../test-support/helpers/validators')
 
 const Validator = require('../Validator')
 
@@ -56,6 +56,7 @@ describe('Auth validator', () => {
       } 
     })
     await validator.run()
+    console.log(validator.validations.email)
     expectIsNotValidAndErrors(validator, {
       mainError,
       errors: {

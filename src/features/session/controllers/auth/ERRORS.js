@@ -1,4 +1,4 @@
-const { makeTypeError, makeError } = require('../../../helpers/errors')
+const { makeTypeError, makeError } = require('../../../../helpers/errors')
 
 const feature = 'session_auth'
 

@@ -9,7 +9,7 @@ const Validator = require('../Validator')
 
 const mainError = 'error_user_creation_payload_validation'
 
-require('../../../../../../test-support/jest-hooks')
+require('@test-support/jest-hooks')
 
 describe('Auth validator', () => {
   it('Valid', async () => {
@@ -59,7 +59,7 @@ describe('Auth validator', () => {
       }
     })
   })
-  it('Not valid: email already user', async () => {
+  it('Not valid: email already used', async () => {
     await User.create({
       firstName: 'xxx',
       lastName: 'yxx',

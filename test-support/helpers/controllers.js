@@ -19,9 +19,13 @@ const mockCallback = (callback) => callback ? callback() : () => null
 const constructorAttributes = (request, response, callback) => 
   [mockReq(request), mockRes(response), mockCallback(callback)]
 
+const responseIsOk = (controller) =>
+  expect(controller.response.ok).toBe(1)
+
 module.exports = {
   constructorAttributes,
   mockCallback,
   mockReq,
-  mockRes
+  mockRes,
+  responseIsOk
 }

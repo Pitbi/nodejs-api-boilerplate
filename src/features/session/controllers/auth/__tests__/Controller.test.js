@@ -1,12 +1,13 @@
-const User = require('../../../../user/model')
+const User = require('@features/user/model')
 
 const {
-  constructorAttributes
-} = require('../../../../../../test-support/helpers/controllers')
+  constructorAttributes,
+  responseIsOk
+} = require('@test-support/helpers/controllers')
 
 const Controller = require('../Controller')
 
-require('../../../../../../test-support/jest-hooks')
+require('@test-support/jest-hooks')
 
 describe('Auth controller', () => {
   it('Login success', async () => {
@@ -25,7 +26,7 @@ describe('Auth controller', () => {
       }
     }))
     await controller.work()
-    expect(controller.response.ok).toBe(1)
+    responseIsOk(controller)
     expect(controller.response.user.email).toBe('email@mail.com')
   })
   it('Login failure: unknown email', async () => {

@@ -37,6 +37,7 @@
     "i18n": "^0.8.3",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
+    "module-alias": "^2.1.0",
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
     "mongoose-deep-populate": "^3.1.1",
@@ -52,6 +53,10 @@
     "sinon": "^6.2.0",
     "sinon-express-mock": "^2.0.5"
   },
+  "_moduleAliases": {
+    "@test-support": "test-support",
+    "@features": "src/features"
+  },
   "jest": {
     "globals": {
       "__DEV": true,
@@ -59,10 +64,17 @@
       "__MONGO_URI": "mongodb://localhost:27017/nodejs-api-boilerplate-dev-jest"
     },
     "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/config/",
-      "/test-support/"
+      "node_modules/",
+      "config/",
+      "test-support/"
     ],
-    "verbose": false
+    "verbose": false,
+    "setupFiles": [
+      "./test-support/jest-setup.js"
+    ],
+    "moduleNameMapper": {
+      "@test-support/(.*)": "<rootDir>/test-support/$1",
+      "@features/(.*)": "<rootDir>/src/features/$1"
+    }
   }
 }

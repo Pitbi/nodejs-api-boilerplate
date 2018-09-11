@@ -1,11 +1,12 @@
 const sinon = require('sinon')
 
 const {
-  constructorAttributes
-} = require('../../../test-support/helpers/controllers')
+  constructorAttributes,
+  responseIsOk
+} = require('@test-support/helpers/controllers')
 const {
   mockValidator
-} = require('../../../test-support/helpers/validators')
+} = require('@test-support/helpers/validators')
 
 const Controller = require('../Controller')
 
@@ -37,7 +38,7 @@ describe('Core Controller', () => {
     controller.Validator = mockValidator({ fakeWarning: true })
     await controller.run()
     controller.respond()
-    expect(controller.response.ok).toBe(1)
+    responseIsOk(controller)
     expect(controller.response.APIWarnings[0].warning).toEqual('fake_validator_warning')
     expect(controller.response.APIWarnings[0].info).toEqual('Fake warning')
   })
@@ -51,7 +52,7 @@ describe('Core Controller', () => {
     const controller = new Controller(...constructorAttributes())
     controller.responseCode = 201
     controller.respond()
-    expect(controller.response.ok).toBe(1)
+    responseIsOk(controller)
     expect(controller.response.code).toBe(201)
   })
   test('throw error: whitout code', async () => {

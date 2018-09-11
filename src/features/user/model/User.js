@@ -32,7 +32,8 @@ class UserClass {
 
   static async register(attributes, options = {}) {
     /*Todo: make worker*/
-    const worker = new RegisterWorker(attributes, options)
+    const user = new User()
+    const worker = new RegisterWorker(user, attributes, options)
     await worker.work()
     return user
   }

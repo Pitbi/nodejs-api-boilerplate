@@ -8,6 +8,10 @@ class UserWorker extends Worker {
     this.options = options
   }
 
+  async saveUser() {
+    this.user.save()
+  }
+
   async sendEmail(options = {}) {
     options.to = this.user.email
     /*TODO*/

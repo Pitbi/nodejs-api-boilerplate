@@ -1,4 +1,4 @@
-const URLS = require('./URLS')
+const URLS = require('@common/constants/URLS')
 
 const ROUTES = [
   {

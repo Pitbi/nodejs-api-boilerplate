@@ -1,7 +1,7 @@
 const Validator = require('api-request-validator')
 
 const ERRORS = require('./ERRORS')
-const REGEX = require('../../../../constants/REGEXP')
+const REGEX = require('@common/constants/REGEXP')
 
 const validations = {
   email: {

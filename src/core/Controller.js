@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const APP = require('../constants/APP')
+const APP = require('@common/constants/APP')
 const jwt = require('jsonwebtoken')
 const SESSION_ERRORS = {} || require('../features/session/ERRORS')
 

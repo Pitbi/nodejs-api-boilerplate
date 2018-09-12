@@ -3,7 +3,7 @@ const {
   schemaRegexpValidation,
   makeValidationError
 } = require('../../../../helpers/models')
-const REGEXP = require('../../../../constants/REGEXP')
+const REGEXP = require('@common/constants/REGEXP')
 
 const userSchema = new mongoose.Schema({
   created: {

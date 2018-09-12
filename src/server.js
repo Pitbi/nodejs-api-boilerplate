@@ -8,7 +8,7 @@ const multipart = require('connect-multiparty')
 
 const router = require('./router')
 
-const APP = require('./constants/APP')
+const APP = require('@common/constants/APP')
 
 //Express server
 const app = express()

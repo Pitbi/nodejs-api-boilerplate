@@ -1,4 +1,4 @@
-const DEFAULT_CONFIG = require('../config')
+const DEFAULT_CONFIG = require('./config')
 
 const CONFIG = {
   ...DEFAULT_CONFIG,

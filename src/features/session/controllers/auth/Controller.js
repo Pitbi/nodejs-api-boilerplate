@@ -21,7 +21,7 @@ class AuthController extends Controller {
       return this.throwError(ERRORS.USER_NOT_VALIDATED)
     await this.logIn(user)
 
-    this.response.user = user
+    this.response.user = user.format()
 
     this.respond()
   }

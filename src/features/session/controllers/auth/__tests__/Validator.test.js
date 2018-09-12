@@ -15,7 +15,7 @@ describe('Auth validator', () => {
       body: {
         email,
         password
-      } 
+      }
     })
     await validator.run()
     expectIsValid(validator)
@@ -24,7 +24,7 @@ describe('Auth validator', () => {
     const validator = new Validator({
       body: {
         password
-      } 
+      }
     })
     await validator.run()
     expectIsNotValidAndErrors(validator, {
@@ -38,7 +38,7 @@ describe('Auth validator', () => {
     const validator = new Validator({
       body: {
         email
-      } 
+      }
     })
     await validator.run()
     expectIsNotValidAndErrors(validator, {
@@ -53,7 +53,7 @@ describe('Auth validator', () => {
       body: {
         email: 'wrong',
         password
-      } 
+      }
     })
     await validator.run()
     expectIsNotValidAndErrors(validator, {
@@ -68,7 +68,7 @@ describe('Auth validator', () => {
       body: {
         email: 123,
         password: 123
-      } 
+      }
     })
     await validator.run()
     expectIsNotValidAndErrors(validator, {

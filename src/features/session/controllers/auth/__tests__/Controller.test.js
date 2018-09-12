@@ -19,7 +19,7 @@ describe('Auth controller', () => {
       active: true,
       validated: true
     })
-    const controller = new Controller(...constructorAttributes({ 
+    const controller = new Controller(...constructorAttributes({
       body: {
         email: 'email@mail.com',
         password: '123456'
@@ -28,6 +28,7 @@ describe('Auth controller', () => {
     await controller.work()
     responseIsOk(controller)
     expect(controller.response.user.email).toBe('email@mail.com')
+    expect(controller.response.user.password).toBeUndefined()
   })
   it('Login failure: unknown email', async () => {
     await User.create({
@@ -38,7 +39,7 @@ describe('Auth controller', () => {
       active: false,
       validated: true
     })
-    const controller = new Controller(...constructorAttributes({ 
+    const controller = new Controller(...constructorAttributes({
       body: {
         email: 'emailunknown@mail.com',
         password: '123456'
@@ -58,7 +59,7 @@ describe('Auth controller', () => {
       active: true,
       validated: false
     })
-    const controller = new Controller(...constructorAttributes({ 
+    const controller = new Controller(...constructorAttributes({
       body: {
         email: 'email@mail.com',
         password: '123456'
@@ -78,7 +79,7 @@ describe('Auth controller', () => {
       active: true,
       validated: true
     })
-    const controller = new Controller(...constructorAttributes({ 
+    const controller = new Controller(...constructorAttributes({
       body: {
         email: 'email@mail.com',
         password: '123456sdvsdv'
@@ -98,7 +99,7 @@ describe('Auth controller', () => {
       active: false,
       validated: true
     })
-    const controller = new Controller(...constructorAttributes({ 
+    const controller = new Controller(...constructorAttributes({
       body: {
         email: 'email@mail.com',
         password: '123456'

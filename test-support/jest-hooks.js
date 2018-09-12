@@ -5,6 +5,6 @@ beforeAll(async () => {
   await dataBase()
 })
 
-afterEach(async () => {
+beforeEach(async () => {
   await mongoose.connection.db.dropDatabase()
 })

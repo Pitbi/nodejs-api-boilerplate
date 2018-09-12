@@ -27,7 +27,7 @@ const mockValidator = (options = {}) => {
 
   class MockValidator extends apiRequestValidator {
     constructor(req) {
-      super(validations, req.body, { 
+      super(validations, req.body, {
         mainError: !options.fakeWarning ? { error: 'main_error' } : undefined,
         filter: options.filter
       })
@@ -37,7 +37,7 @@ const mockValidator = (options = {}) => {
   return MockValidator
 }
 
-const expectFakeErrors = (validator) => 
+const expectFakeErrors = (validator) =>
   expectIsNotValidAndErrors(validator, {
     mainError: 'main_error',
     errors: {
@@ -49,7 +49,7 @@ const expectMainError = (validator, error) =>
   expect(validator.error.error).toBe(error)
 
 const expectError = (validator, path, error) =>
-  expect(_.get(validator.errors, path).find(validatorError => 
+  expect(_.get(validator.errors, path).find(validatorError =>
     validatorError.error === error)
   ).toBeDefined()
 

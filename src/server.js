@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({
   limit: '9mb',
   extended: true
 }))
-app.use(bodyParser.json({ 
+app.use(bodyParser.json({
   limit: '50mb'
 }))
 app.use(multipart())

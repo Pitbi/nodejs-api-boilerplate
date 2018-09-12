@@ -54,8 +54,14 @@ class UserClass {
   }
 
   generateValidationToken() {
-    this.tokens.accountValidations = _.times(20, () => 
-      _.random(35).toString(36)).join('') 
+    this.tokens.accountValidations = _.times(20, () =>
+      _.random(35).toString(36)).join('')
+  }
+
+  format() {
+    const formated = this.toObject()
+    delete formated.password
+    return formated
   }
 }
 

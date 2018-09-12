@@ -52,14 +52,28 @@ const validations = {
 
 class CreateControllerValidator extends Validator {
   constructor(req, options = {}) {
-    super(validations, req.body, { 
+    super(validations, req.body, {
       mainError: ERRORS.MAIN,
       filter: true
     })
   }
   async isExistingEmail(email) {
+    if (this.errors.email)
+      return true
     const user = await User.findOne({ email }).select('_id').lean()
     return !Boolean(user)
+  }
+
+  async afterValidate() {
+    if (this.errors && this.errors.email) {
+      const emailAlreadyExistError = this.errors.email.find(emailError =>
+        emailError.error === 'error_user_creation_email_already_used'
+      )
+      if (emailAlreadyExistError) {
+        this.error = emailAlreadyExistError
+        delete this.errors
+      }
+    }
   }
 }
 

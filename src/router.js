@@ -11,8 +11,8 @@ const router = express.Router()
 
 router.use(endpoints, async (req, res, next) => {
   /*Get route & Controller*/
-  const route = ROUTES.find(route => 
-    req.baseUrl.match(pathToRegexp(route.endpoint)) && 
+  const route = ROUTES.find(route =>
+    req.baseUrl.match(pathToRegexp(route.endpoint)) &&
     route.method.toUpperCase() === req.method
   )
   if (!route)

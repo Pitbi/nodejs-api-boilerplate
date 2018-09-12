@@ -9,8 +9,8 @@ class CreateUserController extends UserController {
   }
 
   async work() {
-    const user = await User.register(this.req.body)
-    this.response.user = this.formatUser(user)
+    this.user = await User.register(this.req.body)
+    this.response.user = this.user.format()
     this.respond()
   }
 }

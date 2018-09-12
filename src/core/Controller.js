@@ -1,12 +1,10 @@
 const _ = require('lodash')
 const APP = require('../constants/APP')
-const User = require('../features/user/model')
 const jwt = require('jsonwebtoken')
 const SESSION_ERRORS = {} || require('../features/session/ERRORS')
 
 class Controller {
   constructor(req, res, next, options = {}) {
-    //console.log(res, next)
     if (!req || !res || !next)
       throw 'Controller.constructor error: missing attribute(s)'
     /*Express req, res & callback*/
@@ -19,7 +17,7 @@ class Controller {
     this.url = req.originalUrl
     this.fullUrl = `${this.protocol}://${this.host}${this.url}`
     this.method = req.method
-    
+
     /*Options*/
     this.__ = res.__
     this.lang = req.headers.lang || APP.i18n.default
@@ -45,7 +43,7 @@ class Controller {
   }
 
   async work() {
-    
+
   }
 
   async preWork() {
@@ -54,7 +52,7 @@ class Controller {
   }
 
   async preValidate() {
-    
+
   }
 
   async validatePayload() {
@@ -63,7 +61,7 @@ class Controller {
     await this.preValidate()
     const validator = new this.Validator(this.req, this.validatorOptions)
     await validator.run()
-    this.expectValidatedData(validator) 
+    this.expectValidatedData(validator)
   }
 
   expectValidatedData(validator) {
@@ -79,13 +77,13 @@ class Controller {
   }
 
   async ensureLogin() {
-    const bsAuthToken = this.req.headers.bsauthtoken
-    if (!this.loginRequired && !bsAuthToken)
+    const authToken = this.req.headers.authtoken
+    if (!this.loginRequired && !authToken)
       return
-    else if (!bsAuthToken)
+    else if (!authToken)
       throw SESSION_ERRORS.SESSION_REQUIRED
     try {
-      const decoded = await jwt.verify(bsAuthToken, __CONFIG.jwt.secret)
+      const decoded = await jwt.verify(authToken, __CONFIG.jwt.secret)
       const user = await Usedr.findActiveById(decoded._id)
       if (!user)
         return ERRORS.SESSION_EXPIRED

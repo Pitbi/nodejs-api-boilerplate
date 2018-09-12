@@ -9,7 +9,7 @@ require('@test-support/jest-hooks')
 
 describe('Create user controller', () => {
   it('Success', async () => {
-    const controller = new Controller(...constructorAttributes({ 
+    const controller = new Controller(...constructorAttributes({
       body: {
         firstName: 'Toz',
         lastName: 'Moz',

@@ -35,7 +35,7 @@ const validations = {
 
 class SessionAuthValidator extends Validator {
   constructor(req) {
-    super(validations, req.body, { 
+    super(validations, req.body, {
       mainError: ERRORS.MAIN,
       filter: true
     })

@@ -7,6 +7,7 @@ class RegisterUserWorker extends UserWorker {
 
   async work() {
     this.user.set(this.attributes)
+    this.user.validated = true /*In the case of normal use, the account should be validated via email or other channel*/
     await this.saveUser()
   }
 }

@@ -19,7 +19,7 @@ global.__MONGO_URI = process.env.MONGO_URI || __CONFIG.database.host
 const run = async () => {
   /*Connect DB*/
   await db()
-  
+
   /*Start express app*/
   require('../src/server')
 }

@@ -1,9 +1,11 @@
 const Worker = require('../../../../core/Worker')
+const User = require('../User')
 
 class UserWorker extends Worker {
   constructor(user, attributes, options) {
     super()
     this.user = user
+    this.User = User
     this.attributes = attributes
     this.options = options
   }

@@ -14,9 +14,9 @@ const mockRes = (response = {}) => mockResponse({
   __: (string = '') => `i18n_test_${string}`
 })
 
-const mockCallback = (callback) => callback ? callback() : () => null 
+const mockCallback = (callback) => callback ? callback() : () => null
 
-const constructorAttributes = (request, response, callback) => 
+const constructorAttributes = (request, response, callback) =>
   [mockReq(request), mockRes(response), mockCallback(callback)]
 
 const responseIsOk = (controller) =>

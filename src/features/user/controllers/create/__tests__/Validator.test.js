@@ -2,8 +2,9 @@ const User = require('../../../model')
 
 const {
   expectIsNotValidAndErrors,
+  expectMainError,
   expectIsValid
-} = require('../../../../../../test-support/helpers/validators')
+} = require('@test-support/helpers/validators')
 
 const Validator = require('../Validator')
 
@@ -19,14 +20,14 @@ describe('Auth validator', () => {
         lastName: 'yxx',
         email: 'existing@mail.com',
         password: 'azqscqs'
-      } 
+      }
     })
     await validator.run()
     expectIsValid(validator)
   })
   it('Not valid: empty payload', async () => {
     const validator = new Validator({
-      body: {} 
+      body: {}
     })
     await validator.run()
     expectIsNotValidAndErrors(validator, {
@@ -46,7 +47,7 @@ describe('Auth validator', () => {
         lastName: 'y',
         email: 'wrong',
         password: 'az'
-      } 
+      }
     })
     await validator.run()
     expectIsNotValidAndErrors(validator, {
@@ -74,14 +75,9 @@ describe('Auth validator', () => {
         lastName: 'yxx',
         email: 'existing@mail.com',
         password: 'azqscqs'
-      } 
-    })
-    await validator.run()
-    expectIsNotValidAndErrors(validator, {
-      mainError,
-      errors: {
-        email: ['error_user_creation_email_already_used']
       }
     })
+    await validator.run()
+    expectMainError(validator, 'error_user_creation_email_already_used')
   })
 })

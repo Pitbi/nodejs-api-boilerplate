@@ -57,6 +57,7 @@ class CreateControllerValidator extends Validator {
       filter: true
     })
   }
+
   async isExistingEmail(email) {
     if (this.errors.email)
       return true

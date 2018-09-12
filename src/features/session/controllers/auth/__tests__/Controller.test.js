@@ -28,6 +28,7 @@ describe('Auth controller', () => {
     await controller.work()
     responseIsOk(controller)
     expect(controller.response.user.email).toBe('email@mail.com')
+    expect(controller.response.user.authToken).toBeDefined()
     expect(controller.response.user.password).toBeUndefined()
   })
   it('Login failure: unknown email', async () => {

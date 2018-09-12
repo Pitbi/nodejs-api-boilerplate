@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
-const { schemaRegexpValidation } = require('../../../../helpers/models')
+const {
+  schemaRegexpValidation,
+  makeValidationError
+} = require('../../../../helpers/models')
 const REGEXP = require('../../../../constants/REGEXP')
 
 const userSchema = new mongoose.Schema({
@@ -10,25 +13,26 @@ const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
     trim: true,
-    required: [true, 'UserSchema - firstName is required'],
-    validate: {
-      validator: schemaRegexpValidation.bind(null, REGEXP.validations.userName, 'UserSchema - firstName is invalid')
-    }
+    required: [true, makeValidationError('User', 'firstName', 'required')],
+    validate: schemaRegexpValidation.bind(null, REGEXP.validations.userName, 'User', 'firstName', 'invalid')()
   },
   lastName: {
     type: String,
     trim: true,
-    required: [true, 'UserSchema - lastName is required']
+    required: [true, makeValidationError('User', 'lastName', 'required')],
+    validate: schemaRegexpValidation.bind(null, REGEXP.validations.userName, 'User', 'lastName', 'invalid')()
   },
   email: {
     type: String,
     trim: true,
-    required: [true, 'UserSchema - email is required'],
-    lowercase: true
+    lowercase: true,
+    required: [true, makeValidationError('User', 'email', 'required')],
+    validate: schemaRegexpValidation.bind(null, REGEXP.validations.email, 'User', 'email', 'invalid')()
   },
   password: {
     type: String,
-    required: [true, 'UserSchema - password is required']
+    required: [true, makeValidationError('User', 'password', 'required')],
+    validate: schemaRegexpValidation.bind(null, REGEXP.validations.password, 'User', 'password', 'invalid')()
   },
   active: {
     type: Boolean,

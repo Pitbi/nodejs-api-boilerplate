@@ -1,8 +1,12 @@
-const schemaRegexpValidation = (regexp, message) => ({
+const schemaRegexpValidation = (regexp, Model = '', key = '', error = '') => ({
   validator: (value) => regexp.test(value),
-  message: props => message
+  message: makeValidationError(Model, key, error)
 })
 
+const makeValidationError = (model = '', key = '', error = '') =>
+  `${model.toLowerCase()}_validation_${key}_${error}`
+
 module.exports = {
-  schemaRegexpValidation
+  schemaRegexpValidation,
+  makeValidationError
 }

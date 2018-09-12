@@ -1,5 +1,9 @@
 const User = require('../User')
 
+const {
+  validate
+} = require('@test-support/helpers/models')
+
 describe('User model', () => {
   it('Virtuals', async () => {
     const user = new User({
@@ -11,14 +15,20 @@ describe('User model', () => {
     expect(user.shortFullName).toBe('P. bi')
     expect(user.initials).toBe('PB')
   })
+  it('Schema validation: trim & lowercase', async () => {
+    const user = new User({
+      email: 'Email@Email.com   ',
+      firstName: 'Jon   ',
+      lastName: '   Doe  ',
+      password: '123456'
+    })
+    expect(user.email).toBe('email@email.com')
+    expect(user.firstName).toBe('Jon')
+    expect(user.lastName).toBe('Doe')
+  })
   it('Schema validations: required fields', async () => {
     const user = new User({})
-    let error
-    try {
-      await user.validate()
-    } catch (err) {
-      error = err
-    }
+    const error = await validate(user)
     expect(error.errors).toBeDefined()
     expect(error.errors.firstName.message).toBe('user_validation_firstName_required')
     expect(error.errors.lastName.message).toBe('user_validation_lastName_required')
@@ -32,12 +42,7 @@ describe('User model', () => {
       lastName: 'B',
       password: '123'
     })
-    let error
-    try {
-      await user.validate()
-    } catch (err) {
-      error = err
-    }
+    const error = await validate(user)
     expect(error.errors).toBeDefined()
     expect(error.errors.firstName.message).toBe('user_validation_firstName_invalid')
     expect(error.errors.lastName.message).toBe('user_validation_lastName_invalid')
